@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* A visible, consistent focus ring. The browser default is removed by Tailwind's
+     reset, and leaving it removed makes the app unusable by keyboard. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+  }
+
+  /* Tabular figures for money and quantities, so digits line up in tables and a
+     changing total does not make the row jitter. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Reusable card surface. */
+  .surface {
+    @apply rounded-xl border border-zinc-200 bg-white shadow-sm;
+  }
+
+  /* Horizontal scroll container for wide tables. The page body must never scroll
+     sideways; the table does. */
+  .table-scroll {
+    @apply -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbars on the filter rail without disabling scrolling. */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Respect a user's reduced-motion preference. The order stepper animates a pulsing
+   ring while the saga runs; for someone who has asked for less motion, a static
+   indicator conveys the same thing. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

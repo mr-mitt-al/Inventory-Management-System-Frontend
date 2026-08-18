@@ -1,0 +1,38 @@
+# Line endings.
+#
+# Windows git is commonly configured with core.autocrlf=true, which rewrites LF to
+# CRLF on checkout. Anything executed inside a Linux container is pinned to LF, so a
+# clone on Windows cannot produce an image whose shell scripts fail at the shebang.
+
+* text=auto eol=lf
+
+# Runs inside containers.
+*.sh          text eol=lf
+Dockerfile    text eol=lf
+nginx.conf    text eol=lf
+
+# Source and config: LF everywhere for consistent diffs.
+*.ts          text eol=lf
+*.tsx         text eol=lf
+*.js          text eol=lf
+*.jsx         text eol=lf
+*.css         text eol=lf
+*.html        text eol=lf
+*.json        text eol=lf
+*.md          text eol=lf
+*.yml         text eol=lf
+*.yaml        text eol=lf
+.gitignore    text eol=lf
+.env.example  text eol=lf
+
+# PowerShell is Windows-native.
+*.ps1         text eol=crlf
+
+# Never touched.
+*.png         binary
+*.jpg         binary
+*.jpeg        binary
+*.gif         binary
+*.ico         binary
+*.woff        binary
+*.woff2       binary
